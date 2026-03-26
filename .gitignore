@@ -41,7 +41,5 @@
 *.dwo
 
 *.pdf
-*.pbm
-*.pgm
 *.txt
 !params.txt
