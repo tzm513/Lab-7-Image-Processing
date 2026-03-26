@@ -16,6 +16,8 @@ program DFT
     character(len = 50) :: waveform
         ! Wave frequency
     real(kind = dp) :: frequency
+        ! Windowing type
+    character(len = 50) :: windowing
 
         ! Length of arrays
     integer :: length
@@ -46,6 +48,8 @@ program DFT
 
     read(10,*) frequency
 
+    read(10,*) windowing
+
     close(10)
 
 
@@ -64,6 +68,8 @@ program DFT
             write(*,*) "Invalid waveform requested"
             stop
     end select
+
+    call window(h, windowing)
 
     W1 = exp(2.0_dp*pi*i / real(length, kind = dp))
     c2 = 0
@@ -229,4 +235,40 @@ program DFT
         
         out = n / (length * dt)
     end function
+
+    subroutine window(arr, type)
+        complex(kind = dp)  :: arr(:)
+        character(len = 20) :: type
+
+        integer :: count
+        integer :: arr_len
+        real(kind = dp) :: mult
+
+        arr_len = size(arr, 1)
+
+        select case(type)
+        case("none")
+            ! If no windowing, make no changes
+        case("triangle")
+            ! Centre has unmodified magnitude, then linear descent to 0 at edges
+            do count = 1, arr_len
+                mult = asin(sin(real(count, kind=dp) * pi / real(arr_len, kind=dp)))
+                arr(count) = arr(count) * mult
+            end do
+        case("cosine")
+            ! Half wavelength of cosine, with period modified to match data
+            do count = 1, arr_len
+                mult = cos((real(count, kind=dp) - real(arr_len/2.0_dp, kind=dp)) * pi / real(arr_len, kind=dp))
+                arr(count) = arr(count) * mult
+            end do
+        case("gaussian")
+            ! Uniform distribution where edges are close to 0 with broad middle and gentle descent
+            do count = 1, arr_len
+                mult = exp(-((count - (real(arr_len, kind=dp)/2.0_dp))**2)/(real(arr_len, kind=dp)*0.25_dp)**2)
+                arr(count) = arr(count) * mult
+            end do
+        case default
+            write(*,*) "Provided windowing type absent/invalid - use 'none' for no windowing" 
+        end select
+    end subroutine
 end program
