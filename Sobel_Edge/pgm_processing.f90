@@ -85,7 +85,6 @@ module pgm_processing
         Nx = ubound(array, 1) - lbound(array, 1) + 1
         Ny = ubound(array, 2) - lbound(array, 2) + 1
         read(u,12) Nx,Ny !width,˜height˜
-        write(*,*) Nx, Ny
         allocate(array(Nx, Ny))
 
         read(u,13) max_greys !max˜gray˜value˜

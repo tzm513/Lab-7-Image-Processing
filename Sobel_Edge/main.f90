@@ -19,16 +19,6 @@ program Edge_Detection
         end do
     end do
 
-    !count_x = 14
-    !count_y = 227
-    !
-    !out_x = sobel(image(count_x-1:count_x+1, count_y-1:count_y+1), 'x')
-    !write(*,*) "out_x: ", out_x
-    !out_y = sobel(image(count_x-1:count_x+1, count_y-1:count_y+1), 'x')
-    !write(*,*) "out_y: ", out_y
-    !out_image(count_x-1, count_y-1) = int((out_x**2 + out_y**2)**0.5)
-    !write(*,*) "out_image: ", out_image(count_x-1, count_y-1)
-
     call write_pgm("clown_grad.pgm", out_image)
 
     contains
