@@ -1,0 +1,4 @@
+100 ! length of vector in terms of indices
+100 ! sampling frequency (1/dt)
+triangle ! wave shape
+1 ! wave freqency
