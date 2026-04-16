@@ -9,8 +9,13 @@ program FFT_edge
     real(kind=dp)                   :: filter
     complex(kind=dp), allocatable   :: edge_image(:,:)
     real(kind=dp), allocatable      :: real_image(:,:)
+
+    character(len=50)               :: filename
+
+    write(*,*) "Please enter the name of the image file to be operated on"
+    read(*,*) filename ! Would like to add some error checking if possible
     
-    call read_pgm('clown.pgm', image)
+    call read_pgm(trim(filename), image)
     !call write_pgm('clown2.pgm', image)
     Nx = size(image, 1)
     Ny = size(image, 2)
