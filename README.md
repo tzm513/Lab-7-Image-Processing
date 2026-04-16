@@ -14,8 +14,26 @@ DFT folder:
 
 Sobel_Edge folder:
 
-    compile & run command:
+    Compile & run command:
 
         gfortran consts.f90 pgm_processing.f90 main.f90 -O3 -std=f2008 -o Sobel.exe; ./Sobel.exe
 
     Generates image clown_grad.pgm to visuale the edges of clown.pgm, using a Sobel filter
+
+FFT_Edge folder:
+
+    Compile & run command:
+
+        gfortran consts.f90 pgm_processing.f90 FFTW_Setup.f90 fft.f90 -lfftw3 -O3 -std=f2008 -o fft.exe
+        ; ./fft.exe
+    
+    Performs an edge detection using the FFTW3 library
+
+Deconvolution folder:
+
+    Compile & run command:
+
+        gfortran consts.f90 pgm_processing.f90 FFTW_Setup.f90 deconv.f90.f90 -lfftw3 -O3 -std=f2008 -o deconv.exe
+        ; ./deconv.exe
+    
+    Removes blur from the provided image using the FFTW3 library
