@@ -1,4 +1,4 @@
-# Lab-8-Image-Processing
+# Lab-7-Image-Processing
 
 DFT folder:
 
